@@ -1,0 +1,263 @@
+{% extends "remenis_base.html" %}
+{% block header_extra %}
+<link href="static/css/compiled.css" rel="stylesheet" type="text/css" />
+<!--
+  jQuery library
+-->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+
+<!--
+  jCarousel library
+-->
+<script type="text/javascript">
+$(function(){
+  // You used .myCarousel here. 
+  // That's the class selector not the id selector,
+  // which is #myCarousel
+  $('.carousel').carousel({  
+	  interval: 10000 // in milliseconds  
+	}); 
+});
+
+
+</script>
+
+
+
+<script type="text/javascript">
+(function() {
+    if (typeof window.janrain !== 'object') window.janrain = {};
+    if (typeof window.janrain.settings !== 'object') window.janrain.settings = {};
+    
+    janrain.settings.tokenUrl = 'http://remenis2.herokuapp.com/home/'/*'http://www.remenis.com/home/'*//*'http://localhost:8000/home/'*/;
+
+    function isReady() { janrain.ready = true; };
+    if (document.addEventListener) {
+      document.addEventListener("DOMContentLoaded", isReady, false);
+    } else {
+      window.attachEvent('onload', isReady);
+    }
+
+    var e = document.createElement('script');
+    e.type = 'text/javascript';
+    e.id = 'janrainAuthWidget';
+
+    if (document.location.protocol === 'https:') {
+      e.src = 'https://rpxnow.com/js/lib/remenis/engage.js';
+    } else {
+      e.src = 'http://widget-cdn.rpxnow.com/js/lib/remenis/engage.js';
+    }
+
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(e, s);
+})();
+</script>
+
+{% endblock %}
+{% block body %}
+
+<!--
+  Mix panel
+-->
+<script type="text/javascript">
+$(function() {
+mixpanel.track("Login page")
+}); 
+    
+</script>
+<script type="text/javascript">
+
+$(function() {
+mixpanel.track_links('#signup_link', 'clicked signup link');
+}); 
+
+$(function() {
+mixpanel.track_links('#facebooklogin_link', 'clicked facebook login link');
+}); 
+
+
+
+</script>
+<div id="fb-root"></div>
+<div id="fb-root"></div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=165606486877795";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="modal hide fade" id="trustus" style="display: none; ">
+				<div class="modal-header center">
+					<a href="#" class="close" data-dismiss="modal">x</a>
+					<h2>Hey there! Welcome to Remenis! </h2>
+				</div>
+				<div class="modal-body">
+					<p> We need you to login with Facebook so you can read stories from your friends and tag your friends on your stories. <br/> <br/> <b>We will not post to your wall without your permission or misuse your data.</b></p> 
+			        </div>
+				<div class="modal-footer center">					
+					<a href="#" class="janrainEngage center btn btn-aqua btn-large" data-dismiss="modal" id="facebooklogin_link">Sign in with Facebook</a>
+					</div>
+    </div>
+    <nav class="landing navbar">
+      <div class="navbar-inner">
+        <div class="nav-container">
+          <a href="#" class = "brand"><img src="static/logo.png" alt="Remenis"></a>
+              
+              <ul class="nav actions">
+	          <a class="janrainEngage btn btn-large" id="login_link">Login</a>
+              </ul>              
+              
+            <ul class="nav">
+                <li><a href="#discover" >Discover</a></li>
+                <li><a href="http://remenis.tumblr.com/" target="_blank">Blog</a></li>
+            </ul>
+        </div>
+      </div>
+      
+          
+    
+    </nav>
+    
+	<div id="myCarousel" class="carousel slide">
+		<div class="carousel-inner">	
+			<div class="active item polaroid wrapper1">			    
+			    <img src="static/main_carousel.jpg" alt="">
+			</div>		
+			<div class="item polaroid wrapper1">			    
+			    <img src="static/wedding_carousel.jpg" alt="">
+			</div>
+			<div class="item polaroid wrapper1">			    
+			    <img src="static/venice_carousel.jpg" alt="">
+			</div>
+			<div class="item polaroid wrapper1">			    
+			    <img src="static/lifeguard_carousel.jpg" alt="">
+			</div>
+		</div> <!--carousel-inner--> 
+		<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+		<a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+	</div> <!--carousel--> 
+	
+    <div class="masonry" role="main">
+    <div class="container_12">
+    <a id="discover"/>
+    <a data-toggle="modal" href="#trustus" class="center btn btn-xlarge btn-aqua" id="signup_link">Let's Remenis. Sign up!</a>
+    <h2 class="grid_12 intro">Here's why you'll love Remenis</h2>
+    
+    <div class="grid_4">
+      
+      <!-- LEFT COLUMN -->
+
+      
+      <div class="brick startup-lab">
+        <img class="block" src="static/img/memlane.png">
+        <div class="diamond"></div>
+        <h2>Bring back the good ole days.</h2>
+        <p class="byline">With Remenis, you can collect your favorite memories - childhood stories, school days, first date, vacations, and everything else - so you never forget them. </p>
+      </div>           
+
+      
+      <div class="brick investing">
+        <img class="block" src="static/img/relationship.png">
+        <div class="diamond"></div>
+        <h2>Build stronger, long-lasting relationships.</h2>
+        <p class="byline">Remenis is about celebrating and strengthening our lives and relationships through stories. Writing your memories down will remind you of your wonderful life. Reading your friends' stories will help you to get to know them better and appreciate them more.</p>
+        
+      </div>     
+      
+      <div class="brick startup-lab">
+        <img class="block" src="static/img/nonoise.png">
+        <div class="diamond"></div>
+        <h2>Only stories, no noise.</h2>
+        <p class="byline">At Remenis, you will only see awesome stories from your friends and family. No farmville invites, no checkins, no news articles, no song playlists. Just awesome stories. </p>        
+      </div>
+      
+    </div>
+    <div class="grid_4">
+      
+      <!-- MIDDLE COLUMN -->
+      
+      
+      <div class="brick blog">
+		<img class="block" src="/static/img/memories.jpg">
+		<div class="diamond"></div>
+		<h2>Memories are forever,<br/>if you write them down.<br/><br/></h2>
+		<div class="events">
+		  <div>
+		  <!--<img src="/static/remcloud1.png" alt="">-->
+		  <strong>Reminisce</strong>
+		  <span class="date-location">Think back on all the great times of your life.</span>
+		</div>
+		<div>
+		  <!--<img src="static/remcloud2.png" alt="">-->
+		  <strong>Share</strong>
+		  <span class="date-location">Write those stories down, tag and share with your friends.</span>
+		</div>
+		<div>
+		  <!--<img src="static/remcloud3.png" alt="">-->
+		  <strong>Remenis</strong>
+		  <span class="date-location">Have fun remembering and collecting your life stories.</span>
+		</div>
+	      </div>
+      </div>  
+
+      <div class="brick twitter" id="tweet-brick" style="display: block; ">
+        <img class="block" src="/static/img/vacation.jpg">
+        <div class="text-block">The richness of life lies in the memories we have forgotten.</span></div>
+        <div class="diamond"></div>
+        <div class="center fb-like-box" data-href="http://www.facebook.com/remenis" data-width="170" data-show-faces="false" data-stream="false" data-header="true"></div>       
+      </div>      
+          
+      
+    </div>
+    <div class="grid_4">
+      
+      <!-- RIGHT COLUMN -->
+
+      <div class="brick investing">
+        <div class="slides">
+          <img class="block" src="/static/img/write.png">
+        </div>
+        <div class="diamond"></div>
+        <h2>Our stories are powerful.</h2>
+        <p class="byline">We know the power of stories, especially those of our friends and family. They will inspire us, teach us and help us appreciate our lives.</p>
+      </div>
+
+      <div class="brick startup-lab">
+        <img class="block" src="/static/img/richstories.png">
+        <div class="diamond"></div>
+        <h2>Rich, detailed stories.</h2>
+        <p class="byline">Status updates, pictures and 140 character messages are just not enough to describe us or our lives. We want to hear the stories, the details of our fondest memories.</p>
+      </div>
+       
+       <div class="brick recruiting">
+        <img class="block" src="/static/img/private.jpg">
+        <div class="diamond"></div>
+        <h2>Personal stories stay personal.</h2>
+        <p class="byline">Some stories aren't meant for all. Remenis makes it easy to keep your stories private or share them with only those you trust.</p>
+      </div>
+      
+      
+
+    </div>
+    <div class="clear"></div>
+  </div>
+  </div>
+
+      <footer>
+        <p>&copy; Remenis 2012</p>
+      </footer>
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="static/js/jquery.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+            
+{% endblock %}
+
+{% block no_body %}
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends "remenis_base_nav.html" %}
+
+        {% block content %}
+
+        <br>
+        {% if not story %}
+        <p>{{ error }}</p>
+        {% else %}
+        <div style="margin-top: 0px;" >
+            <!--story table-->
+	    <div class ="center">
+            <table class="table story-container" style="width: 80%; float:left;">
+                <tr><td>
+                    <div>
+                        <div class="row-fluid" style="margin-top: 0px;">
+                            <p class="span10" style="margin: 0px 0px; color: white; font-size: 16; line-height: 125%;">
+                                <a href="/story/{{ story.id }}" class="storytitlerow-recent"><strong>{{ story.title }}</strong></a>
+                                <br>
+                                <i style="color: #CFCFCF; font-size: 14;">{{ story_date_string }}</i>
+                            </p>
+                            <p align="right" style="color: grey; font-size: 12; {% if story.authorid.fbid == userid %} margin-right: 32px; {% endif %}">
+                                {{ story_post_date }}
+                            </p>
+                            {% if story.authorid.fbid == userid %}
+                            <div class="btn-group pull-right" style="margin-top: -30px;">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu pull-right">
+                                    <li><a data-toggle="modal" data-id="{{ story.id }}" class="edit_story" href="#post">Edit Story</a></li>
+                                    <li><a data-toggle="modal" data-id="{{ story.id }}" class="delete_story" href="#delete">Delete Story</a></li>
+                                </ul>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </td></tr>
+                <tr><td>
+                    <p style="color: grey; margin-bottom: 0px; font-size: 14;">{{ story.story|linebreaksbr }} &nbsp;</p>
+                    {% if story.is_private %}
+                    <p class="pull-right" style="color: #CFCFCF; font-size: 12; margin-bottom: -6px;" rel="tooltip" title="Only those in this story are able to see it."><i>Private</i></p>
+                    {% endif %}
+                </td></tr>
+                <!--comment form table row-->
+                <tr><td>
+                    <div style="color: grey; margin-top: 5px; margin-bottom: -10px;">
+                        <form action="/comment/" method="post" name="commentForm" onsubmit="return validateCommentForm(this)">
+                            <input type="hidden" name="storyid" value="{{ story.id }}">
+                            <input type="hidden" name="comment_flag" value="false">
+                            <div class="input-append">
+                                <!--<img src="/static/remenis_favicon.png" width=30 />-->
+                                
+                                <input name="comment" type="text" class="input-xmlarge comment_text_box" size="16" placeholder="write a comment..." autocomplete="off">
+                                    
+                                <span class="add-on" style="font-size: 10; height: 10px; width: 18px; margin-left: -11px; background-color: #258EAA; color: white;
+                                    -webkit-transform: rotate(270deg);
+                                    -moz-transform: rotate(270deg);
+                                    -o-transform: rotate(270deg);
+                                    -ms-transform: rotate(270deg);
+                                    transform: rotate(270deg);"
+                                    rel="tooltip" title="Number of likes">
+                                    <p style="margin: -5px;">
+                                        {{ story_likes|length }}
+                                    </p>
+                                </span>
+                                
+                                <button class="btn btn-medium" onclick="location.href='/like/{{ story.id }}'" style="margin-left: -11px;" rel="tooltip" title="Like this story!" {% if story.id in liked_story_ids %} disabled="disabled" {% endif %}>
+                                    <i class="icon-heart"></i>
+                                </button>
+                                <button class="btn btn-medium" type="button" style="margin-left: -5px;" rel="tooltip" title="Bookmark - coming soon!">
+                                    <i class="icon-bookmark"></i>
+                                </button>
+                                <button class="btn btn-medium" onclick="PostToYourWall({{ story.id }})" type="button" style="margin-left: -5px;" rel="tooltip" title="Share on Facebook!">
+                                    <i class="icon-share-alt"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </td></tr>
+                {% for story_comment in story_comments %}
+                <tr style="background-color: #F0F0F0;"><td>
+                    <a href="/{{ story_comment.authorid.fbid }}" class="nounderline" style="float: left;">
+                        <img id="{{ story_comment.authorid.fbid }}" class="highlightit rounded3" src="https://graph.facebook.com/{{ story_comment.authorid.fbid }}/picture?type=square" height="30" width="30"/>
+                    </a>
+                    <div style="margin: 0px 5px 0px 8px; width: 435px; float: left;">
+                        <p style="margin-top: -3px; color: grey; font-size: 10; float: right;">
+                        {{ story_comment.post_date }}
+                        </p>
+                        <p style="margin-bottom: 2px; font-size: 14"><a href="/{{ story_comment.authorid.fbid }}" class="black"><strong>{{ story_comment.authorid.full_name }}</strong></a></p>
+                        <p style="margin-bottom: 0px; font-size: 14">{{ story_comment.comment }}</p>
+                    </div>
+                </td></tr>
+                {% endfor %}
+            </table>
+            
+            <!--tagged user div-->
+            <table class="table table-borderless table-condensed" id="tagged-friends-table" style="margin-left: 10px; width: 19%; float: right;">
+	        <tbody id="author-body">
+				    <tr><td>
+					<p style="margin-bottom: 15px;">Written by</p>
+				    </td></tr>
+				    <tr><td>
+						<p style="font-size: 13;">
+						<img id="{{ story.authorid.fbid }}" class="highlightit rounded3" src="https://graph.facebook.com/{{ story.authorid.fbid }}/picture?type=square" height="30" width="30"/>
+				                <a href="/{{ story.authorid.fbid }}" style="color: #292929;">{{ story.authorid.full_name }}</a>
+				    </td></tr>					
+				</tbody>
+                <tbody id="tagged-friends-body">
+		                                  
+                    <tr><td>		        
+                        <p style="margin-bottom: 15px;">In This Story</p>
+                    </td></tr>
+                    {% for tagged_user in story_tagged_users %}
+                    <tr><td>
+                        <p style="font-size: 13;">
+                        <a href="/{{ tagged_user.fbid }}" class="nounderline">
+                            <img id="{{ tagged_user.fbid }}" class="highlightit rounded3" src="https://graph.facebook.com/{{ tagged_user.fbid }}/picture?type=square" height="30" width="30"/>
+                        </a>
+                        &nbsp;&nbsp;<a href="/{{ tagged_user.fbid }}" class="black">{% if tagged_user.full_name|length > 18 %}{{ tagged_user.full_name|slice:":18" }}...{% else %}{{ tagged_user.full_name }}{% endif %}</a>
+                        </p>
+                    </td></tr>
+                    {% empty %}
+                    <tr><td>
+                        <span style="font-size: 13px;">none</span>
+                    </td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+	    </div>
+	</div>
+        {% endif %}
+
+        {% endblock %}

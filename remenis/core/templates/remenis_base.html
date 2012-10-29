@@ -1,0 +1,686 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Remenis</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" type="image/ico" href="/static/remenis_favicon.ico" />
+        <meta property="og:title" content="Remenis"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:image" content="http://www.remenis.com/static/remenis_logo.png"/>
+        <meta property="og:url" content="http://www.remenis.com"/>
+        <meta property="og:site_name" content="Remenis"/>
+        <meta property="og:description" content="A collection of all your life stories."/>
+        <meta property="fb:app_id" content="297031353727647" />        
+        
+	
+	{% block header_extra %}
+        {% endblock %} 
+	<link href="/static/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        
+        <style type="text/css">
+            body {
+                padding-top: 0px;
+                padding-bottom: 40px;
+            }
+            .sidebar-nav-fixed {
+                padding: 9px 0;
+                position:fixed;
+                left:20px;
+                top:60px;
+                width:250px;
+            }
+            .row-fluid > .span-fixed-sidebar {
+                margin-left: 290px;
+            }
+
+        </style>
+        <link href="/static/css/bootstrap-responsive.css" rel="stylesheet" type="text/css"/>
+        <link href="/static/css/style.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript">
+            
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-33801556-1']);
+            _gaq.push(['_trackPageview']);
+            
+            (function() {
+             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+             })();     
+	
+	</script>
+	
+	
+	<!-- start Mixpanel -->
+	<script type="text/javascript">
+	(function(c,a){window.mixpanel=a;var b,d,h,e;b=c.createElement("script");b.type="text/javascript";b.async=!0;b.src=("https:"===c.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.1.min.js';d=c.getElementsByTagName("script")[0];d.parentNode.insertBefore(b,d);a._i=[];a.init=function(b,c,f){function d(a,b){var c=b.split(".");2==c.length&&(a=a[c[0]],b=c[1]);a[b]=function(){a.push([b].concat(Array.prototype.slice.call(arguments,0)))}}var g=a;"undefined"!==typeof f?
+	g=a[f]=[]:f="mixpanel";g.people=g.people||[];h="disable track track_pageview track_links track_forms register register_once unregister identify name_tag set_config people.identify people.set people.increment".split(" ");for(e=0;e<h.length;e++)d(g,h[e]);a._i.push([b,c,f])};a.__SV=1.1})(document,window.mixpanel||[]);
+	mixpanel.init("7a40249d359ab9a4ba53c7ea8ba8a2f4");
+	</script>
+	<!-- end Mixpanel -->
+    </head>
+    <body>
+    {% block body %}
+    <div class="background" {% block inside_body %}{% endblock %}>
+        <div id="fb-root"></div>
+	<script type="text/javascript">
+		$(function() {
+		mixpanel.track_links('#submitButton', 'Submitted story');
+		}); 
+		$(function() {
+		mixpanel.track_links('#poststorylink', 'Clicked post story on nav bar');
+		}); 
+	</script>
+        <script>(function(d, s, id) {
+                 var js, fjs = d.getElementsByTagName(s)[0];
+                 if (d.getElementById(id)) return;
+                 js = d.createElement(s); js.id = id;
+                 js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=297031353727647";
+                 fjs.parentNode.insertBefore(js, fjs);
+                 }(document, 'script', 'facebook-jssdk'));</script>
+        
+        {% block nav %}
+        {% endblock %}
+        
+        {% block splash %}
+        {% endblock %}
+        
+        {% block no_body %}
+        <!--post modal-->
+        <div class="modal hide fade post-modal" data-backdrop="static" id="post">	  
+	  
+            <div class="item active">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <div class="title">
+			    <h2>Write a story!</h2>
+		</div>
+		<div class="subtitle">
+		    <h2>Don't forget to tag the people in the story. </h2>
+		</div>
+            </div>
+            <form action="/post/" method="post" name="submitForm" style="margin-bottom:0;" onsubmit="return validateSubmitForm(this)">
+                <input type="hidden" id="storyid_for_edit" name="storyid_for_edit">
+                <input type="hidden" id="story_of_the_day_flag" name="story_of_the_day_flag" value="false">
+                <div class="modal-body">
+                    <div class="row-fluid">
+                        <div class="span7" style="margin-left: 5px;">
+                            <p><input id="title_for_edit" type="text" class="span11" name="title" placeholder="Title of your story" autocomplete="off"></p>
+                            <p style="color: grey;">When did this story happen?</p>
+                            <div id="post_date_div" style="margin-top: -8px;">
+                                <select id="date_year_select" name="story_date_year" style="width: 100px;"></select>
+                                <button id="add_month_button" type="button" style="margin-bottom: 7px;" onclick="addMonth()">+ add month</button>
+                            </div>
+                            <p><textarea id="story_for_edit" name="story" placeholder="Tell us your story..." class="span11" rows="6"></textarea></p>
+                            <div style="margin-top: 10px;">
+                                <label class="checkbox span2" id="checkbox_label" rel="tooltip" title="Only the friends tagged in this story will be able to view it.">
+                                    <input id="private_checkbox" name="private" type="checkbox"> Private
+                                </label>
+                            </div>
+                        </div>
+                        <div class="span5" style="margin-left: 0px;">
+                            <p><input id="tagged_friend_searchBox" type="text" class="input-large" data-provide="typeahead" data-items="6" data-source='{{ friends_name_array_string|safe }}' placeholder="Who was in the story?" autocomplete="off"></p>
+                            <p style="color: grey; font-size: 16; margin-bottom: 2px;">tagged friends</p>
+                            <input type="hidden" id="post-tagged-friends" name="tagged_friends">
+                            <table class="table table-unbordered" id="post-tagged-friends-table" style="margin-left: -4px;">
+                                <tbody id="post-tagged-friends-body">
+                                    <tr id="{{ userid }}">
+                                        <td>
+                                            <p style="font-size: 14;">
+                                                <img src="https://graph.facebook.com/{{ userid }}/picture?type=square" style="float: left; margin-left: -4px;" class="lightborder rounded3" height="30"/>
+                                                <span style="margin-top: 5px; float: left;">&nbsp;&nbsp;&nbsp;{% if fullname|length > 15 %}{{ fullname|slice:":15" }}...{% else %}{{ fullname }}{% endif %}</span>
+                                                <img src="/static/img/x.png" style="float: right;" height="20" width="20" id="{{ userid }}" onclick="removeTaggedFriend(this)"/>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row-fluid">
+                        <div class="span8">
+                            <p id="post_errortext" align="left" style="color: red; font-size: 16; margin-left: 10px;"></p>
+                        </div>
+                        <div class="span4">
+                            <a class="btn" data-dismiss="modal">Close</a>
+                            <input id="submitButton" name="submitButton" type="submit" class="btn btn-primary" style="width: 75px;" value="Submit &raquo;">
+                        </div>
+                    </div>
+                </div>
+            </form>
+	    </div>
+        </div>
+        
+        <!--delete modal-->
+        <div class="modal hide fade delete-modal" id="delete">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h2>Delete!</h2>
+            </div>
+            <form action="/delete/" method="post" name="deleteForm" style="margin-bottom:0;" onsubmit="return deleteFormSubmitted()">
+                <input type="hidden" id="storyid_for_delete" name="storyid_for_delete">
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this story?</p>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn" data-dismiss="modal">Close</a>
+                    <input id="deleteButton" name="deleteButton" type="submit" class="btn btn-aqua" style="width: 75px;" value="Delete &raquo;">
+                </div>
+            </form>
+        </div>
+        
+        <!--share modal-->
+        <div class="modal hide fade post-modal" id="share">
+            <input type="hidden" id="storyid_for_share" name="storyid_for_share">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" href="#">×</button>
+                <div class="title">
+		    <h2>Share your story on Facebook</h2>
+		</div>
+		<div class="subtitle">
+		    <h2>Re-live your memories with your friends.</h2>			    
+		</div>
+            </div>
+            <div class="modal-body center">
+                <button class="btn btn-primary btn-xlarge" onclick="PostToYourWall('')">&nbsp;&nbsp;Post story to your wall &nbsp;&nbsp;</button>
+		<button class="btn btn-primary btn-large" onclick="SendAMessage('')">Send story as message to tagged friends </button>               
+                 
+            </div>
+        </div>
+
+      
+      
+	<div class="container">
+		{% block no_sidebar %}
+		{% endblock %}            
+	    {% block content %}
+       
+               {% endblock %}
+            </div>
+            
+        </div>
+        {% endblock %}
+        
+        {% block no_footer %}
+        <div class="footerdiv">        
+         </div>         
+        {% endblock %}
+        
+        
+        {% block load_javascript %}
+        {% endblock %}
+        
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="/static/js/jquery.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+        <script src="http://connect.facebook.net/en_US/all.js"></script>
+        
+        <!--utils-->
+        <script>
+            FB.init({appId: '297031353727647', xfbml: true, cookie: true});
+            
+            var preventSubmit = function(event) {
+                if(event.keyCode == 13)
+                {
+                    event.preventDefault();
+                    return false;
+                }
+            }
+            
+            function getParameter(parameter)
+            {
+                //Get Query String from url
+                fullQString = window.location.search.substring(1);
+                
+                if(fullQString.length > 0)
+                {
+                    //Split Query String into separate parameters
+                    paramArray = fullQString.split("&");
+                    
+                    //Loop through params, check if parameter exists.  
+                    for (i=0;i<paramArray.length;i++)
+                    {
+                        currentParameter = paramArray[i].split("=");
+                        if(currentParameter[0] == parameter) //Parameter already exists in current url
+                        {
+                            return currentParameter[1];
+                        }
+                    }
+                }
+                
+                return false;
+            }
+        </script>
+        
+                
+        <!--javascript for share-->
+        <script>
+            function ShareThisLink(storyid)
+            {
+                if (storyid == "")
+                {
+                    storyid = document.getElementById('storyid_for_share').value;
+                }
+                if (storyid != "")
+                {
+                    $.getJSON('/api/story/' + storyid, function(jsonString)
+                              {
+                                    var url = 'https://www.facebook.com/sharer/sharer.php?s=100&p%5Burl%5D=http://www.remenis.com/story/' + storyid + '&p%5Bimages%5D%5B0%5D=http://www.remenis.com/static/remenis_logo.png&p%5Btitle%5D=I just wrote this story on Remenis!&p%5Bsummary%5D=' + jsonString['title'] + ': ' + jsonString['story'];
+                                    popupWindow = window.open(url,'popUpWindow','height=350,width=700,left=10,top=10,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no,status=yes');
+                              });
+                }
+            }
+            
+            function PostToYourWall(storyid)
+            {
+                var title = 'Check out this story on Remenis!';
+                var redirect_uri = 'http://www.remenis.com/messagesent1/';
+                if (storyid == "") // via share popup
+                {
+                    storyid = document.getElementById('storyid_for_share').value;
+                    title = 'I just wrote this story on Remenis!';
+                    redirect_uri = 'http://www.remenis.com/messagesent3/';
+                }
+                $.getJSON('/api/story/' + storyid, function(jsonString)
+                          {
+                          var description = "";
+                          if (jsonString['title'] != "")
+                          {
+                          description += jsonString['title'] + ": ";
+                          }
+                          description += jsonString['story'].substring(0,200);
+                          if (jsonString['story'].length > 200)
+                          {
+                          description += "...";
+                          }
+                          FB.ui({
+                                method: 'feed',
+                                name: title,
+                                link: 'http://www.remenis.com/story/' + storyid,
+                                redirect_uri: redirect_uri,
+                                picture: 'http://www.remenis.com/static/remenis_logo.png',
+                                description: description,
+                                });
+                          });
+            }
+            
+            function SendAMessage(storyid)
+            {
+                var title = 'Check out this story on Remenis!'; // currently not used.  SendAMessage always called via share popup.
+                if (storyid == "") // via share popup
+                {
+                    storyid = document.getElementById('storyid_for_share').value;
+                    title = 'I just wrote this story on Remenis!';
+                }
+                $.getJSON('/api/story/' + storyid, function(jsonString)
+                          {
+                          var description = "";
+                          if (jsonString['title'] != "")
+                          {
+                            description += jsonString['title'] + ": ";
+                          }
+                          description += jsonString['story'].substring(0,200);
+                          if (jsonString['story'].length > 200)
+                          {
+                            description += "...";
+                          }
+                            FB.ui({
+                                method: 'send',
+                                name: title,
+                                link: 'http://www.remenis.com/story/' + storyid,
+                                redirect_uri: 'http://www.remenis.com/messagesent2/',
+                                picture: 'http://www.remenis.com/static/remenis_logo.png',
+                                description: description,
+                            });
+                });
+            }
+        </script>
+        
+        <!--javascript for search-->
+        <script>
+            $('#searchBox').change(function()
+                {
+                    var allFriendsDic = {{ friends_dictionary|safe }};
+                    
+                    for (var key in allFriendsDic)
+                    {
+                        if (allFriendsDic[key] == document.searchForm.searchBox.value)
+                        {
+                            document.getElementById('search_friend_id').value = key
+                            document.searchForm.submit();
+                            break;
+                        }
+                    }
+                });
+        </script>
+        
+        <!--javascript for post-->
+        <script>
+            $(function() {
+              var today = new Date();
+              var currentYear = today.getFullYear();
+              
+              for (i = currentYear; i >= 1900; i--)
+              {
+              var newoption = document.createElement('option');
+              newoption.innerHTML = i;
+              document.getElementById("date_year_select").appendChild(newoption);
+              }
+              
+              var storyid = getParameter("share");
+              if (storyid != false)
+              {
+                $("#share_text").val(storyid);
+                $("#storyid_for_share").val(storyid);
+                $('#share').modal('show');
+              }
+            });
+            
+            $('#post').on('shown', function () {
+                          document.getElementById("title_for_edit").focus();
+                          });
+                          
+            $('#post').on('hidden', function () {
+// Tricky to NOT refresh after hiding a post, because of the case when you populate the post dates, and then edit a story
+//                          if (document.getElementById("submittype").value == "edit")
+//                          {
+                          window.location.reload();
+//                          }
+                             });
+            
+            $("#checkbox_label").tooltip()
+            $("#title_for_edit").keypress(preventSubmit);
+            $("#tagged_friend_searchBox").keypress(preventSubmit);
+            
+            $(".edit_story").click(function(){
+                                   $("#storyid_for_edit").val($(this).data('id'));
+                                   populateEditStory($(this).data('id'));
+                                   });
+            
+            $(".delete_story").click(function(){
+                                     $("#storyid_for_delete").val($(this).data('id'));
+                                     });
+            
+            function deleteFormSubmitted()
+            {
+                document.deleteForm.deleteButton.disabled = true;
+            }
+            
+            function populateEditStory(storyid)
+            {
+                $("#post_modal_title").prop("innerHTML", "Edit this story!");
+                $.getJSON('/api/story/' + storyid, function(jsonString)
+                          {
+                          $("#title_for_edit").val(jsonString['title']);
+                          $("#story_for_edit").val(jsonString['story']);
+                          $("#date_year_select").val(jsonString['story_date_year']);
+                          addMonth(jsonString['story_date_month']);
+                          addDay(jsonString['story_date_day']);
+                          $("#private_checkbox").prop("checked", jsonString['is_private']);
+                          var tagged_users = JSON.parse(jsonString['tagged_users']);
+                          removeAllTaggedFriends();
+                          for (var i = 0; i < tagged_users.length; i++)
+                          {
+                                addTaggedFriend(tagged_users[i]);
+                          }
+                          $("#submitButton").val("Update »")
+                          });
+            }
+            
+            function convertMonthToString(month_int)
+            {
+                monthDictionary = {1: "Jan", 2: "Feb", 3: "Mar", 4: "Apr", 5: "May", 6: "Jun", 7: "Jul", 8: "Aug", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Dec"}
+                
+                if (month_int in monthDictionary)
+                {
+                    return monthDictionary[month_int];
+                }
+                else
+                {
+                    return "---";
+                }
+            }
+            
+            function addMonth(initialValue)
+            {
+                if (typeof initialValue == 'undefined')
+                {
+                    initialValue = "---";
+                }
+                else if (initialValue == 0)
+                {
+                    return;
+                }
+                
+                var newselect = document.createElement('select');
+                newselect.id = "date_month_select";
+                newselect.setAttribute('name', "story_date_month");
+                newselect.setAttribute('style', "width: 90px; margin-right: 5px;");
+                newselect.setAttribute('onchange', "updateDays()");
+                newselect.innerHTML = "<option>---</option><option>Jan</option><option>Feb</option><option>Mar</option><option>Apr</option><option>May</option><option>Jun</option><option>Jul</option><option>Aug</option><option>Sep</option><option>Oct</option><option>Nov</option><option>Dec</option>";
+                newselect.value = convertMonthToString(initialValue);
+
+                document.getElementById("post_date_div").appendChild(newselect);
+                
+                var oldmonthbutton = document.getElementById('add_month_button');
+                document.getElementById("post_date_div").removeChild(oldmonthbutton);
+                
+                var newdaybutton = document.createElement('button');
+                newdaybutton.id = "add_day_button";
+                newdaybutton.setAttribute('type', "button");
+                newdaybutton.setAttribute('style', "margin-bottom: 7px;");
+                newdaybutton.setAttribute('onclick', "addDay()");
+                newdaybutton.innerHTML = "+ add day";
+                document.getElementById("post_date_div").appendChild(newdaybutton);
+            }
+            
+            function addDay(initialValue)
+            {
+                if (typeof initialValue == 'undefined')
+                {
+                    initialValue = "---";
+                }
+                else if (initialValue == 0)
+                {
+                    return;
+                }
+                
+                var newselect = document.createElement('select');
+                newselect.id = "date_day_select";
+                newselect.setAttribute('name', "story_date_day");
+                newselect.setAttribute('style', "width: 70px;");                
+                document.getElementById("post_date_div").appendChild(newselect);
+                updateDays(initialValue);
+                
+                var olddaybutton = document.getElementById('add_day_button');
+                document.getElementById("post_date_div").removeChild(olddaybutton);
+            }
+            
+            function updateDays(initialValue)
+            {
+                var monthselect = document.getElementById('date_month_select');
+                var dayselect = document.getElementById('date_day_select');
+                
+                var numdays = 0;
+                if (monthselect.value == "---")
+                {
+                    numdays = 0;
+                }
+                else if (monthselect.value == "Feb")
+                {
+                    numdays = 28;
+                }
+                else if (monthselect.value == "Apr" || monthselect.value == "Jun" || monthselect.value == "Sep" || monthselect.value == "Nov")
+                {
+                    numdays = 30;
+                }
+                else
+                {
+                    numdays = 31;
+                }
+                
+                dayselect.innerHTML = "<option>---</option>";
+                for (i = 1; i <= numdays; i++)
+                {
+                    dayselect.innerHTML += "<option>" + i + "</option>";
+                }
+                dayselect.value = initialValue;
+            }
+        </script>
+        
+        <!--javascript for tagged user in post-->
+        <script>
+            $('#tagged_friend_searchBox').change(function()
+                                                 {
+                                                 addTaggedFriend(0);
+                                                 });
+            
+            function addTaggedFriend(fbid)
+            {
+                var allFriendsDic = {{ friends_dictionary|safe }};
+                for (var key in allFriendsDic)
+                {
+                    if (fbid == key || allFriendsDic[key] == document.submitForm.tagged_friend_searchBox.value)
+                    {
+                        var exists = false;
+                        var table = document.getElementById("post-tagged-friends-table");
+                        var rowCount = table.rows.length;
+                        
+                        for(var i=0; i<rowCount; i++)
+                        {
+                            var row = table.rows[i];
+                            if (row.id == key)
+                            {
+                                exists = true;
+                                break;
+                            }
+                        }
+                        if (!exists)
+                        {
+                            var taggedFriendName = allFriendsDic[key];
+                            if (taggedFriendName.length > 15)
+                            {
+                                taggedFriendName = taggedFriendName.substring(0, 15) + "...";
+                            }
+                            $('#post-tagged-friends-body').append("<tr id=\"" + key + "\"><td>" +
+                                                             "<p style=\"font-size: 14;\">" +
+                                                             "<img src=\"https://graph.facebook.com/" + key + "/picture?type=square\" style=\"float: left;  margin-left: -4px;\" class=\"lightborder rounded3\" height=\"30\"/>" +
+                                                             "<span style=\"margin-top: 5px; float: left;\">&nbsp;&nbsp;&nbsp;" + taggedFriendName + "</span>" + 
+                                                             "<img src=\"/static/img/x.png\" style=\"float: right;\" height=\"20\" width=\"20\" id=\"" + key + "\" onclick=\"removeTaggedFriend(this)\"/>" +
+                                                             "</p></td></tr>");
+                        }
+                        document.submitForm.tagged_friend_searchBox.value = "";
+                        break;
+                    }
+                }
+            }
+            
+            function removeTaggedFriend(image)
+            {
+                var table = document.getElementById("post-tagged-friends-table");
+                var rowCount = table.rows.length;
+                
+                for(var i=0; i<rowCount; i++)
+                {
+                    var row = table.rows[i];
+                    if (row.id == image.id)
+                    {
+                        table.deleteRow(i);
+                        break;
+                    }
+                }
+            }
+            
+            function removeAllTaggedFriends()
+            {
+                var table = document.getElementById("post-tagged-friends-table");
+                var rowCount = table.rows.length;
+                
+                for(var i=0; i<rowCount; i++)
+                {
+                    table.deleteRow(i);
+                }
+            }
+        </script>
+        
+        <!--javascript for validating post-->
+        <script>
+            function validateSubmitForm(form)
+            { 
+                form.submitButton.disabled = true;
+                if (form.story.value == "")
+                {
+                    document.getElementById('post_errortext').innerHTML = "You must write a story!";
+                    form.submitButton.disabled = false;
+                    return false;
+                }
+                
+                var table = document.getElementById("post-tagged-friends-table");
+                var rowCount = table.rows.length;
+                var tagged_friends_array = [];
+                for(var i=0; i<rowCount; i++)
+                {
+                    var row = table.rows[i];
+                    tagged_friends_array.push(row.id);
+                }
+                document.getElementById('post-tagged-friends').value = tagged_friends_array;
+                return true;
+            }
+        </script>
+        
+        <!--javascript for comment-->
+        <script>
+            $("p[rel=tooltip]").tooltip();
+            $("img[rel=tooltip]").tooltip();
+            $("button[rel=tooltip]").tooltip();
+            $("span[rel=tooltip]").tooltip();
+            $("button[rel=popover]").popover();
+            
+            function validateCommentForm(form)
+            {
+                if (form.comment.value != "" && form.comment_flag.value == "false")
+                {
+                    form.comment_flag.value = "true";
+                    form.comment.readOnly = true;
+                    return true;
+                }
+                return false;
+            }
+        </script>
+        
+        <!--javascript for expand story-->
+        <script>
+            function showHide(shID) {
+                if (document.getElementById(shID+'-more')) {
+                    if (document.getElementById(shID+'-show').style.display != 'none') {
+                        document.getElementById(shID+'-show').style.display = 'none';
+                        document.getElementById(shID+'-more').style.display = 'inline';
+                    }
+                    else {
+                        document.getElementById(shID+'-show').style.display = 'inline';
+                        document.getElementById(shID+'-more').style.display = 'none';
+                    }
+                }
+            }    
+        </script>
+        
+        {% block no_feedback %}
+        <script type="text/javascript">
+            var uvOptions = {};
+            (function() {
+             var uv = document.createElement('script'); uv.type = 'text/javascript'; uv.async = true;
+             uv.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'widget.uservoice.com/PLAfTuCOOjszoH9CLpw.js';
+             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(uv, s);
+             })();
+        </script>
+        {% endblock %}
+        
+        {% block load_javascript2 %}
+        {% endblock %}
+    </div>
+    </body>
+    {% endblock %}
+</html>

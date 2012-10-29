@@ -1,0 +1,32 @@
+{% extends "remenis_base.html" %}
+
+        {% block inside_body %}
+        background="/static/remenis_background.jpg"
+        {% endblock %}
+
+        {% block splash %}
+        <!--<div style="text-align: center; margin-left: auto; margin-right: auto; margin-bottom: 50px; width: 630px;">
+            <img src="/static/remenis_logo.png"/>
+        </div>
+        <p style="font-size: 25px; color: #FFFFFF; margin: 40px;">Sent!</p>-->
+        {% endblock %}
+
+        {% block no_sidebar %}
+        {% endblock %}
+
+        {% block no_footer %}
+        {% endblock %}
+
+        {% block no_feedback %}
+        {% endblock %}
+
+        {% block load_javascript2 %}
+        <script>
+            $(document).ready(function(){
+                              self.close();
+                              });
+        </script>
+        {% endblock %}
+
+
+

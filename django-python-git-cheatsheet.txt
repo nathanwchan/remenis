@@ -1,0 +1,69 @@
+django-admin.py startproject <project name>
+
+python manage.py help
+python manage.py runserver
+
+Test db configuration in settings.py:
+python manage.py shell
+>>> from django.db import connection
+>>> cursor = connection.cursor()
+
+Project vs. app
+Run from project directory:
+python manage.py startapp <app name>
+
+Validate the models:
+python manage.py validate
+
+To print output of what SQL Django executes:
+python manage.py sqlall books
+
+Commit the SQL to the database, ie. "sync" the model(s) to your database:
+python manage.py syncdb
+
+Command-line client for SQL
+python manage.py dbshell
+
+also?
+python manage.py shell
+
+Activate admin interface by uncommenting certain lines in the settings.py file.
+run python manage.py syncdb to install the extra database tables that the admin interface uses.
+it will ask you if you want to create a superuser.
+if you don't, you'll need to run:
+python manage.py createsuperuser
+
+Add you models to the admin site- create a file called admin.py
+- admin.autodiscover() iterates over your INSTALLED_APPS setting and looks for a file called admin.py in each installed app.
+
+
+GIT NOTES:
+git init myproject
+git add .
+git commit <-a> <-m>
+git status
+git push heroku master
+git push -u origin master
+
+git checkout master
+git commit -a -m:My new logo"
+git push
+
+git checkout -b nathansfeature
+git commit -a -m"My feature code"
+git push origin nathansfeature
+
+git pull
+git merge nathansfeature
+
+
+South migration:
+add 'south' to INSTALLED_APPS in settings.py
+run python manage.py syncdb
+brand new app: python manage.py schemamigration core --initial
+converting existing app: python manage.py convert_to_south core
+python manage.py schemamigration core --auto
+python manage.py migrate core
+python manage.py migrate core 0002 --fake --delete-ghost-migrations
+
+heroku pg:info --app remenis

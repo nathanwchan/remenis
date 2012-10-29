@@ -1,0 +1,53 @@
+
+<div class="navbar navbar-fixed-top navbar-inverse">
+              <div class="navbar-inner">
+                <div class="container">
+                  <a href="/home/" class = "brand"><img src="/static/logo.png" alt="Remenis"></a>
+                  <div class="">
+                    <ul class="nav pull-left">
+                        <li {% ifequal active_tab "profile" %}class="active"{% endifequal %}>
+                            <a href="/profile/"><i class="icon-user" style="margin-right: 6px"></i>My Stories</a>
+                        </li>
+                        <li {% ifequal active_tab "notifications" %}class="active"{% endifequal %}>
+                            <a href="/notifications/"><i class="icon-flag" style="margin-right: 6px"></i>Notifications {% if notification_count > 0 %}<span class="badge badge-important">{{ notification_count }}</span>{% endif %}</a>
+                        </li>
+                        <li {% ifequal active_tab "post" %}class="active"{% endifequal %}>
+                            <a data-toggle="modal" href="#post" id="poststorylink"><i class="icon-pencil" style="margin-right: 6px"></i>Post a Story</a>
+                        </li>
+                        <li {% ifequal active_tab "whatsnext" %}class="active"{% endifequal %}>
+                            <a href="/whatsnext/"><i class="icon-forward" style="margin-right: 6px"></i>What's Next?</a>
+                        </li>                     
+                    </ul>
+		    <!--
+                    <form class="navbar-search pull-left" action="">
+                       <input type="hidden" id="search_friend_id" name="q">
+                        <div class="input-append">
+                            <input id="searchBox" type="text" class="search-query" data-provide="typeahead" data-items="6" data-source='{{ friends_name_array_string|safe }}' placeholder="Search for a friend" autocomplete="off">
+                            <span class="add-on" style="margin-left: -4px; height: 20px;"><i class="icon-search" style="margin-top: 2px;"></i></span>
+                        </div>
+                    </form>
+		    -->
+                    <ul class="nav pull-right">
+                      <li class="divider-vertical"></li>
+			<div class="btn-group" style="float: right;">
+			    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+				<!--<i class="icon-user"></i> {{ fullname }}-->
+				<img src="https://graph.facebook.com/{{ userid }}/picture?type=square" class="rounded3" height="20" width="20"/>
+				{{ fullname }}
+				<span class="caret"></span>
+			    </a>
+			    <ul class="dropdown-menu">
+				<li><a href="/profile">Profile</a></li>
+				<li><a href="/settings">Settings</a></li>
+				<li class="divider"></li>
+				<li><a href="/logout">Sign Out</a></li>
+			    </ul>
+			</div>
+                        </ul>
+                    </ul>
+                  </div><!-- /.nav-collapse -->
+                </div>
+              </div><!-- /navbar-inner -->
+            </div>
+</div>
+	    

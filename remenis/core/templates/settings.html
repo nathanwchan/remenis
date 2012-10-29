@@ -1,0 +1,12 @@
+{% extends "remenis_base_nav.html" %}
+
+        {% block content %}
+
+        <h2>Settings</h2><br>
+        <form action="/settings/" method="post" name="updateSettingsForm">
+            <input type="checkbox" id="unsubscribe_email" name="unsubscribe_email" {% if unsubscribe_email %} checked=true {% endif %}> Unsubscribe from email notifications<br><br>
+            <input id="updateSettingsButton" name="updateSettingsButton" type="submit" class="btn btn-primary btn-medium" value="Update settings">
+        </form>
+        <p style="color: green;">{{ success_message }}</p>
+
+        {% endblock %}

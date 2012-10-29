@@ -1,0 +1,427 @@
+{% extends "remenis_base_nav.html" %}
+
+        {% block content %}
+	<div class="modal hide fade new-user-modal" id="new-user-modal">
+	    <div id="welcomecarousel" class="carousel slide">
+                <div class="carousel-inner">
+                  <div class="item active">
+                    <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">x</button>
+			<div class="title">
+			    <h2>{{ fullname }}, Welcome to Remenis!</h2>
+			</div>
+			<div class="subtitle">
+			    <h2>Finally, a place where you can write, share and collect all your life stories. </h2>
+			</div>
+			
+		    </div>
+		    <div class="modal-body">
+			<img src="/static/img/ThreeGirls.png" style = "width:100%;">
+			
+	            </div>
+		    <div class="modal-footer">
+			    <div class="row-fluid">
+				<div class="span8">
+				    <p> So why don't we get you started? Click next.</p>
+				</div>
+				<div class="span4">
+				    <a class="btn btn-primary right" href="#welcomecarousel" data-slide="next">Next</a>
+				</div>
+			    </div>
+		    </div>
+                  </div>
+                  <div class="item">
+                    <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">x</button>
+			<div class="title">
+			    <h2>First, think back on a favorite memory!</h2>
+			</div>
+			<div class="subtitle">
+			    <h2>Here's a list to help you. Pick one that brings a big smile.</h2><br/><br/>
+			    {% for story_idea in story_ideas %}
+				<div class="ideas other-ideas">
+				<h2> {{ story_idea }} </h2>
+			       </div>
+			    {% endfor %}
+			</div>
+		    </div>
+		    <div class="modal-footer">
+			    <div class="row-fluid">
+				<div class="span8">
+				    <p> So why don't we get you started? Click next.</p>
+				</div>
+				<div class="span4">
+				    <a data-toggle="modal" class="btn btn-primary right" href="#post" id="welcomepoststory">Next</a>
+				</div>
+			    </div>
+		    </div>
+                  </div>
+		  <div class="item">
+                    <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">x</button>
+			<div class="title">
+			    <h2>We hope you will continue to enjoy Remenis!</h2>
+			</div>
+			<div class="subtitle">
+			    <h2>Please share success tories, ideas, and feedback so we can make Remenis better for you.</h2>			    
+			</div>
+		    </div>
+		    <div class="modal-body">
+			<img src="/static/useRemenis.png"/ style = "width:100%;">
+			
+	            </div>
+		    <div class="modal-footer">
+			    <div class="row-fluid">
+				<div class="span8">
+				    <p>Write, share and collect your life stories.</p>
+				</div>
+				<div class="span4">
+				    <a class="btn btn-primary right" href="#welcomecarousel" data-slide="next"> Start Remenising.</a>
+				</div>
+			    </div>
+		    </div>
+                  </div>
+                </div>
+            </div>
+            
+            
+	</div>
+	
+	
+	
+	
+	<div class ="write-story-prompt center qb-container">
+	    <!--<div class ="box">
+		<h2> Write a story from your life...</h2>
+	    </div>-->
+	    <div class ="ideas">
+	         <div class="accordion" id="accordion2">
+                <div class="accordion-group">
+                  <div class="accordion-heading">
+		    <p> Write a story! Here are some ideas. </p> 
+		    <div class ="row-fluid">
+		            <div class = "span8"> 
+			    <a data-toggle="modal" href="#post"><h2> {{ main_story_idea }}</h2> </a>
+			    </div>
+			    <div class = "span4"> 
+			    <a class="accordion-toggle collapsed btn btn-large" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+			      More Ideas
+			    </a>
+			    </div>
+		    </div> <!-- end row --> 
+                  </div>
+                  <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">
+                    <div class="accordion-inner">
+		    {% for story_idea in story_ideas %}
+		        <div class="other-ideas">
+			<a data-toggle="modal" href="#post"><h2> {{ story_idea }} </h2></a>
+		       </div>
+		    {% endfor %}		      
+                    </div>
+                  </div>
+                </div>
+              </div>
+	    </div>
+	</div>
+	<div class = "center"> 	
+        {% if not_friend %}
+        <p class="errormessage"><a href="http://www.facebook.com/{{ profileid }}" target="_blank">{{ profile_name }}</a> is not your Facebook friend.</p>
+        {% else %}
+        <h2>{{ profile_name }}</h2>
+        <br>
+        {% if stories_about_user and active_tab != 'home' %}
+        <ul class="nav nav-tabs center navtabs">
+            <li class="active">
+                <a href="?display=recent">Most Recent</a>
+            </li>
+            <li>
+                <a href="?display=timeline">Timeline</a>
+            </li>
+        </ul>
+        <br>	
+        {% endif %}
+        <table class="table table-notop center outertable-recent">
+        {% for story in stories_about_user %}
+       <tr>
+		<td class ="story-container">
+		<a name="{{ story.id }}" style="position:absolute; margin-top: -45px"></a>    
+		<div style="margin-top: 15px;">
+		    
+		    <!--story table-->
+		    <table class="table" style="width: 500px; float: left;">
+			<tr><td>
+			    <div class="row-fluid" style="margin-top: 0px;">
+				<p class="span10" style="margin: 0px -10px 0px 0px; font-size: 16; line-height: 125%;">
+				    <a href="/story/{{ story.id }}" class ="storytitlerow-recent">{% if story.title == '' %}...{% else %}<strong>{{ story.title }}</strong>{% endif %}</a>
+				    <br>
+				    <i style="color: #CFCFCF; font-size: 14;">
+					{% for dic_storyid, dic_storydatestring in stories_date_string_dictionary.items %}
+					    {% ifequal dic_storyid story.id %}
+						{{ dic_storydatestring }}
+					    {% endifequal %}
+					{% endfor %}
+				    </i>
+				</p>
+				<p align="right" style="color: grey; font-size: 12; {% if story.authorid.fbid == userid %} margin-right: 32px; {% endif %}">
+				    {% for dic_storyid, dic_storypostdate in stories_post_date_dictionary.items %}
+					{% ifequal dic_storyid story.id %}
+					    {{ dic_storypostdate }}
+					{% endifequal %}
+				    {% endfor %}
+				</p>
+				{% if story.authorid.fbid == userid %}
+				<div class="btn-group pull-right" style="margin-top: -30px;">
+				    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+					<span class="caret"></span>
+				    </a>
+				    <ul class="dropdown-menu pull-right">
+					<li><a data-toggle="modal" data-id="{{ story.id }}" class="edit_story" href="#post">Edit Story</a></li>
+					<li><a data-toggle="modal" data-id="{{ story.id }}" class="delete_story" href="#delete">Delete Story</a></li>
+				    </ul>
+				</div>
+				{% endif %}
+			    </div>
+			</td></tr>
+			<tr><td>
+			    <p style="color: grey; margin-bottom: 0px; font-size: 14;">
+			    {% if story.story|length > 500 %}
+				{{ story.story|linebreaksbr|slice:":500" }}<span id="story-{{ story.id }}-show">... <a href="#" onclick="showHide('story-{{ story.id }}');return false;"> See more &darr;</a></span><span id="story-{{ story.id }}-more" style="display: none;">{{ story.story|linebreaksbr|slice:"500:" }}<!--<a href="#" onclick="showHide('story-{{ story.id }}');return false;"> See less &uarr;</a>--></span>
+			    {% else %}
+				{{ story.story|linebreaksbr }}
+			    {% endif %}
+			    </p>
+			    {% if story.is_private %}
+			    <p class="pull-right" style="color: #CFCFCF; font-size: 12; margin-bottom: -6px;" rel="tooltip" title="Only those in this story are able to see it."><i>Private</i></p>
+			    {% endif %}
+			</td></tr>
+			<!--comment form table row-->
+			<tr><td>
+			    <div style="color: grey; margin-top: 5px; margin-bottom: -10px;">
+				<form action="/comment/" method="post" name="commentForm" onsubmit="return validateCommentForm(this)">
+				    <input type="hidden" name="storyid" value="{{ story.id }}">
+				    <input type="hidden" name="comment_flag" value="false">
+				    <div class="input-append">
+					<!--<img src="/static/remenis_favicon.png" width=30 />-->
+
+					<input name="comment" type="text" class="input-xmlarge comment_text_box" size="16" placeholder="write a comment..." autocomplete="off" style="margin-left: 4px;">
+					
+					<span class="add-on" style="font-size: 10; height: 10px; width: 18px; margin-left: -11px; background-color: #258EAA; color: white;
+					    -webkit-transform: rotate(270deg);
+					    -moz-transform: rotate(270deg);
+					    -o-transform: rotate(270deg);
+					    -ms-transform: rotate(270deg);
+					    transform: rotate(270deg);"
+					    rel="tooltip" title="Number of likes">
+					    <p style="margin: -5px;">
+					    {% for dic_storyid, dic_storylikes in stories_likes_dictionary.items %}
+						{% ifequal dic_storyid story.id %}
+						    {{ dic_storylikes|length }}
+						{% endifequal %}
+					    {% endfor %}
+					    </p>
+					</span>
+					
+					<button class="btn btn-medium" onclick="location.href='/like/{{ story.id }}'" style="margin-left: -11px;" rel="tooltip" title="Like this story!" {% if story.id in liked_story_ids %} disabled="disabled" {% endif %}>
+					    <i class="icon-heart"></i>
+					</button>
+					<button class="btn btn-medium" type="button" style="margin-left: -5px;" rel="tooltip" title="Bookmark - coming soon!">
+					    <i class="icon-bookmark"></i>
+					</button>
+					<button class="btn btn-medium" onclick="PostToYourWall({{ story.id }})" type="button" style="margin-left: -5px;" rel="tooltip" title="Share on Facebook!">
+					    <i class="icon-share-alt"></i>
+					</button>
+				    </div>
+				</form>
+			    </div>
+			</td></tr>
+			{% for dic_storyid, dic_storycomments in stories_comments_dictionary.items %}
+			    {% ifequal dic_storyid story.id %}
+				{% if dic_storycomments|length > 3 %}
+				    <tr style="background-color: #F0F0F0;"><td>
+					<a href="/story/{{ story.id }}">
+					    <span style="font-size: 13px;">View all {{ dic_storycomments|length }} comments</span>
+					</a>
+				    </td></tr>
+				    {% with dic_storycomments_reverse=dic_storycomments|dictsortreversed:"post_date" %}
+					{% with story_comment=dic_storycomments_reverse.1 %}
+					    <tr style="background-color: #F0F0F0;"><td>
+						<a href="/{{ story_comment.authorid.fbid }}" class="nounderline" style="float: left;">
+						    <img id="{{ story_comment.authorid.fbid }}" class="highlightit rounded3" src="https://graph.facebook.com/{{ story_comment.authorid.fbid }}/picture?type=square" height="30" width="30"/>
+						</a>
+						<div style="margin: 0px 5px 0px 8px; width: 435px; float: left;">
+						    <p style="margin-top: -3px; color: grey; font-size: 10; float: right;">
+						    {{ story_comment.post_date_for_display }}
+						    </p>
+						    <p style="margin-bottom: 2px; font-size: 14"><a href="/{{ story_comment.authorid.fbid }}" class="black"><strong>{{ story_comment.authorid.full_name }}</strong></a></p>
+						    <p style="margin-bottom: 0px; font-size: 14">{{ story_comment.comment }}</p>
+						</div>
+					    </td></tr>
+					{% endwith %}
+					{% with story_comment=dic_storycomments_reverse.0 %}
+					    <tr style="background-color: #F0F0F0;"><td>
+						<a href="/{{ story_comment.authorid.fbid }}" class="nounderline" style="float: left;">
+						    <img id="{{ story_comment.authorid.fbid }}" class="highlightit rounded3" src="https://graph.facebook.com/{{ story_comment.authorid.fbid }}/picture?type=square" height="30" width="30"/>
+						</a>
+						<div style="margin: 0px 5px 0px 8px; width: 435px; float: left;">
+						    <p style="margin-top: -3px; color: grey; font-size: 10; float: right;">
+						    {{ story_comment.post_date_for_display }}
+						    </p>
+						    <p style="margin-bottom: 2px; font-size: 14"><a href="/{{ story_comment.authorid.fbid }}" class="black"><strong>{{ story_comment.authorid.full_name }}</strong></a></p>
+						    <p style="margin-bottom: 0px; font-size: 14">{{ story_comment.comment }}</p>
+						</div>
+					    </td></tr>
+					{% endwith %}
+				    {% endwith %}
+				{% else %}
+				    {% for story_comment in dic_storycomments %}
+				    <tr style="background-color: #F0F0F0;"><td>
+					<a href="/{{ story_comment.authorid.fbid }}" class="nounderline" style="float: left;">
+					    <img id="{{ story_comment.authorid.fbid }}" class="highlightit rounded3" src="https://graph.facebook.com/{{ story_comment.authorid.fbid }}/picture?type=square" height="30" width="30"/>
+					</a>
+					<div style="margin: 0px 5px 0px 8px; width: 435px; float: left;">
+					    <p style="margin-top: -3px; color: grey; font-size: 10; float: right;">
+					    {{ story_comment.post_date_for_display }}
+					    </p>
+					    <p style="margin-bottom: 2px; font-size: 14"><a href="/{{ story_comment.authorid.fbid }}" class="black"><strong>{{ story_comment.authorid.full_name }}</strong></a></p>
+					    <p style="margin-bottom: 0px; font-size: 14">{{ story_comment.comment }}</p>
+					</div>
+				    </td></tr>
+				    {% endfor %}
+				{% endif %}
+			    {% endifequal %}
+			{% endfor %}
+		    </table>
+			
+		    <!--tagged user div-->
+		    <table class="table table-borderless table-condensed" id="tagged-friends-table" style="margin-left: 10px; width: 200px; float: left;">
+			{% for dic_storyid, dic_taggedusers in stories_tagged_users_dictionary.items %}
+			    {% ifequal dic_storyid story.id %}
+			        <tbody id="author-body">
+				    <tr><td>
+					<p style="margin-bottom: 15px;">Written by</p>
+				    </td></tr>
+				    <tr><td>
+						<p style="font-size: 13;">
+						<img id="{{ story.authorid.fbid }}" class="highlightit rounded3" src="https://graph.facebook.com/{{ story.authorid.fbid }}/picture?type=square" height="30" width="30"/>
+				                <a href="/{{ story.authorid.fbid }}" style="color: #292929;">{{ story.authorid.full_name }}</a>
+				    </td></tr>					
+				</tbody>
+				<tbody id="tagged-friends-body">
+				    <tr><td>
+					<p style="margin-top: 15px; margin-bottom: 15px;">In This Story</p>
+				    </td></tr>
+				    {% if dic_taggedusers|length > 3 %}
+					{% if dic_taggedusers.0.fbid == story.authorid.fbid %}
+					    {% for tagged_user in dic_taggedusers|slice:"1:3" %}
+					    <tr><td>
+						<p style="font-size: 13;">
+						<a href="/{{ tagged_user.fbid }}" class="nounderline">
+						    <img id="{{ tagged_user.fbid }}" class="highlightit rounded3" src="https://graph.facebook.com/{{ tagged_user.fbid }}/picture?type=square" height="30" width="30"/>
+						</a>
+						&nbsp;&nbsp;<a href="/{{ tagged_user.fbid }}" class="black">{% if tagged_user.full_name|length > 18 %}{{ tagged_user.full_name|slice:":18" }}...{% else %}{{ tagged_user.full_name }}{% endif %}</a>
+						</p>
+					    </td></tr>
+					    {% endfor %}
+					{% else %}
+					    {% for tagged_user in dic_taggedusers|slice:":2" %}
+					    <tr><td>
+						<p style="font-size: 13;">
+						<a href="/{{ tagged_user.fbid }}" class="nounderline">
+						    <img id="{{ tagged_user.fbid }}" class="highlightit rounded3" src="https://graph.facebook.com/{{ tagged_user.fbid }}/picture?type=square" height="30" width="30"/>
+						</a>
+						&nbsp;&nbsp;<a href="/{{ tagged_user.fbid }}" class="black">{% if tagged_user.full_name|length > 18 %}{{ tagged_user.full_name|slice:":18" }}...{% else %}{{ tagged_user.full_name }}{% endif %}</a>
+						</p>
+					    </td></tr>
+					    {% endfor %}
+					{% endif %}
+					<tr><td>
+					    <a href="/story/{{ story.id }}">
+						<span style="font-size: 13px;">and {{ dic_taggedusers|length|add:"-2" }} others...</span>
+					    </a>
+					</td></tr>
+				    {% else %}
+					{% for tagged_user in dic_taggedusers %}
+					<tr><td>
+						<p style="font-size: 13;">
+						    <a href="/{{ tagged_user.fbid }}" class="nounderline">
+							<img id="{{ tagged_user.fbid }}" class="highlightit rounded3" src="https://graph.facebook.com/{{ tagged_user.fbid }}/picture?type=square" height="30" width="30"/>
+						    </a>
+						    &nbsp;&nbsp;<a href="/{{ tagged_user.fbid }}" class="black">{% if tagged_user.full_name|length > 18 %}{{ tagged_user.full_name|slice:":18" }}...{% else %}{{ tagged_user.full_name }}{% endif %}</a>
+						</p>
+					</td></tr>
+					{% empty %}
+					<tr><td>
+					    <span style="font-size: 13px;">none</span>
+					</td></tr>
+					{% endfor %}
+				    {% endif %}
+				</tbody>
+			    {% endifequal %}
+			{% endfor %}
+		    </table>
+		</div>
+		</td>
+	</tr>	
+	<tr> <td class ="gap"> </td></tr>
+                           
+        {% empty %}
+            <span class="recent-specialmessage">
+            {% if active_tab == 'home' %}
+                <p>Congrats, looks like you're the first of your friends on Remenis!  Why not start things off! What's your favorite life story?</p>
+                <br>
+                <a class="btn btn-primary btn-large" data-toggle="modal" href="#post">Tell us a story</a>
+            {% else %}
+                {% if active_tab == 'profile' %}
+                <p>Looks like there aren't any stories about you yet.  Why not start things off?</p>
+                {% else %}
+                <p>Looks like there aren't any stories about {{ profile_name }} yet.  Why not start things off?</p>
+                {% endif %}
+                <br>
+                <a class="btn btn-primary btn-large" data-toggle="modal" href="#post">Tell us a story</a>
+            {% endif %}
+            </span>
+        {% endfor %}
+        </table>
+
+        {% endif %}
+	</div>
+        {% endblock %}
+	
+	{% block load_javascript2 %}
+	<script type="text/javascript">
+	$(function() {
+	mixpanel.track("Feed Recent")
+	}); 
+	    
+	</script>
+	<script type="text/javascript">
+	$(function(){
+	  // You used .myCarousel here. 
+	  // That's the class selector not the id selector,
+	  // which is #myCarousel
+	  $('#welcomecarousel').carousel({  
+		  interval: false 
+		}); 
+	});
+	</script>	
+	<script type="text/javascript">
+		$(document).ready(function() {
+		  var newUser = '{{new_user}}';
+		  var isNewUser = newUser == 'True' ||  newUser == 'true';
+		  if(isNewUser)
+		  {
+			$('#new-user-modal').modal({backdrop: 'static', show: true}); 
+		  }
+		});
+	    
+	</script>
+	<script type="text/javascript">
+		$("#welcomepoststory").click(function() {
+		  $('#new-user-modal').modal('hide'); 
+		});
+	    
+	</script>
+	
+	
+	
+        {% endblock %}

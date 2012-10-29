@@ -1,0 +1,680 @@
+.story-container {
+position: relative;
+background: white;
+border-radius: 3px;
+-webkit-box-shadow: inset 0px 0px 1px 0px rgba(255, 255, 255, 0.7),0px 2px 5px 0px rgba(0, 0, 0, 0.24);
+box-shadow: inset 0px 0px 10px 0px rgba(255, 255, 255, 0.7),0px 2px 10px 0px rgba(0, 0, 0, 0.24);
+padding: 30px 30px 30px 30px; 
+margin-top: 20px; 
+
+}
+
+.gap
+{
+background: transparent; 
+height: 10px; 
+}
+.table th, .table td {
+border-top: 0px;
+}
+
+.table tbody tr:hover td, .table tbody tr:hover th {
+background-color: white; 
+}
+
+.story-container .title
+{
+}
+
+body {
+background-image: url(/static/cross_scratches.png);
+}
+
+body.external .content-container {
+width: 800px;
+margin: 0 auto;
+padding-left: 50px;
+padding-right: 50px;
+clear: both;
+}
+
+.masonry body
+{
+	font-size: 18px; 
+}
+
+.navbar {
+height: 100px;
+margin-bottom: 0;
+}
+
+.navbar  .navbar-inner{
+height: 70px;
+margin-bottom: 0;
+border-radius: 0;
+text-shadow: none;
+padding: 25px 0 10px;
+
+}
+
+.brick h2 {
+
+ font-family: "Segoe UI Semibold"; 
+}
+
+.navbar  .navbar-inner .nav{
+
+}
+
+.landing .navbar .container {
+width: 940px;
+margin-top: 0px;
+}
+
+.landing .navbar .navbar-inner .nav 
+{
+	float:right; 
+}
+
+.center
+{
+margin-left:auto;
+margin-right:auto;
+text-align: center;
+  display: block;
+  float:center;
+}
+
+.navbar .container {
+margin-top: 0px;
+}
+
+.container {
+margin-top: 150px;
+}
+
+.navbar .navbar-inner .nav.actions, .topbar .nav.actions {
+margin-left: 20px;
+padding-left: 20px;
+float: right;
+margin-top: 9px;
+}
+
+.navbar .nav {
+position: relative;
+left: 0;
+display: block;
+float: left;
+margin: 0 10px 0 0;
+}
+
+.navbar .btn {
+display: inline-block;
+line-height: 25px;
+margin: -7px; 
+}
+
+.navbar .nav > li > a {
+padding: 20px 10px 11px;
+}
+
+.btn-large {
+margin: 20px;
+font-size: 16px;
+line-height: normal;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+}
+
+.nav-container {
+width: 80%;  
+margin-left: auto;
+margin-right: auto;
+}
+
+.content-container {
+padding: 30px 40px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Segoe UI Light"; 
+}; 
+
+.carousel {
+margin-bottom: 0px; 
+}
+
+#mycarousel
+{
+    text-align: center; 
+    margin: 0px auto;
+}
+
+.btn-aqua {
+  background-color: #2A8E82;
+  color: #ffffff; 
+  *background-color: #2FAA96;
+  background-image: -ms-linear-gradient(top, #2A8E82, #2FAA96);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#2A8E82), to(#2FAA96));
+  background-image: -webkit-linear-gradient(top, #2A8E82, #2FAA96);
+  background-image: -o-linear-gradient(top, #2A8E82, #2FAA96);
+  background-image: -moz-linear-gradient(top, #2A8E82, #2FAA96);
+  background-image: linear-gradient(top, #2A8E82, #2FAA96);
+  background-repeat: repeat-x;
+  border-color: #2FAA96 #2FAA96 #003580;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#2A8E82', endColorstr='#2FAA96', GradientType=0);
+  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+}
+
+.btn-aqua:hover,
+.btn-aqua:active,
+.btn-aqua.active,
+.btn-aqua.disabled,
+.btn-aqua[disabled] {
+  background-color: #2FAA96;
+  *background-color: #004ab3;
+}
+
+.btn-aqua:active,
+.btn-aqua.active {
+  background-color: #004099;
+}
+
+.btn-aqua .caret {
+  border-top-color: #ffffff;
+  border-bottom-color: #ffffff;
+  opacity: 0.75;
+  filter: alpha(opacity=75);
+}
+
+.btn-aqua,
+.btn-aqua:hover {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.events img
+{
+	width:80 px;
+	clear:both; 
+}
+.btn-xlarge {
+
+  padding: 25px 18px 25px 18px;
+  color:white;
+  font-size: 25px;
+  font-family: "Segoe UI Semibold"; 
+  line-height: normal;
+  margin-top: 20px; 
+
+}
+
+.hero-unit h2
+{
+        font-family: Verdana;
+	font-weight:normal;
+	font-size: 30px; 
+	margin-top: 20px; 
+}
+
+
+.hero-unit h1
+{
+	font-size: 50px;
+	font-weight:normal;
+font-family: Verdana;	
+	margin-top: 50px; 
+}
+
+#mycarousel img{
+
+	min-width: 100%;
+
+}
+
+h2 {
+
+font-size: 22px; 
+}
+
+body {
+line-height: 30px;
+font-size: 14px; 
+font-family: "Segoe UI"; 
+}
+
+.btn-login {
+  display: inline-block;
+  *display: inline;
+  padding: 4px 10px 4px;
+  margin-bottom: 0;
+  *margin-left: .3em;
+  font-size: 13px;
+  line-height: 18px;
+  *line-height: 20px;
+  color: #333333;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  vertical-align: middle;
+  cursor: pointer;
+  *zoom: 1;
+}
+.content-container {
+position: relative;
+background: white;
+border-radius: 3px;
+-webkit-box-shadow: inset 0px 0px 1px 0px rgba(255, 255, 255, 0.7),0px 2px 5px 0px rgba(0, 0, 0, 0.24);
+box-shadow: inset 0px 0px 10px 0px rgba(255, 255, 255, 0.7),0px 2px 5px 0px rgba(0, 0, 0, 0.24);
+}
+
+h5 { 
+   position: absolute; 
+   top: 30px; 
+   left: 0; 
+   width: 100%; 
+   left:0px;   
+    /* styling bellow */  
+    background-color:black;   
+    font-size:30px;  
+    color:white;  
+    opacity:0.6; /* transparency */  
+    filter:alpha(opacity=60); /* IE transparency */  
+}
+
+.hero-unit
+{
+   text-align: center; 
+   background-color: transparent; 
+   /*background-image: url('/static/low_contrast_linen.png'); */
+   color: black;
+   margin: 0px;
+   padding: 20px; 
+}
+
+footer
+{
+    text-align: center; 
+}
+
+.qb-container {
+position: relative;
+background: white;
+-webkit-box-shadow: inset 0px 0px 1px 0px rgba(255, 255, 255, 0.7),0px 2px 5px 0px rgba(0, 0, 0, 0.24);
+box-shadow: inset 0px 0px 10px 0px rgba(255, 255, 255, 0.7),0px 2px 10px 0px rgba(0, 0, 0, 0.24);
+padding: 0px 0px 0px 0px;
+margin-top: 20px;
+}
+
+.write-story-prompt .accordion-group {
+margin-bottom: 2px;
+border: 0px solid;
+-webkit-border-radius: 0px;
+-moz-border-radius: 0px;
+border-radius: 0px;
+}
+
+.write-story-prompt .btn-large{
+    margin:0px;   
+    float: right;   
+    color: gray;    
+}
+
+.write-story-prompt
+{
+	width: 800px; 
+	margin-bottom: 30px; 
+}
+
+.write-story-prompt .input-medium {
+	width: 760px;
+}
+
+.write-story-prompt text-area {
+
+	height: 30px; 
+}
+
+.write-story-prompt .box
+{
+	padding: 10px 20px 20px 20px;
+	text-align: left; 
+	
+}
+
+.write-story-prompt  .accordion-heading {
+margin-bottom: 20px;
+}
+
+.write-story-prompt h2 {
+font-size: 24px;
+}
+.write-story-prompt .ideas
+{
+	background-color: #009EEC; 
+	color: white; 
+	padding: 0px; 
+	text-align: left; 
+	padding: 10px 20px 4px 20px;
+	margin-bottom: 10px; 
+}
+
+.modal-footer p
+{
+text-align: left; 
+font-size: 16;
+}
+
+.modal-footer {
+padding: 14px 15px 14px;
+background-color: white; 
+}
+
+.modal {
+
+overflow: hidden; 
+}
+
+.modal-body {
+max-height: 400px;
+padding: 15px;
+overflow-y: hidden;
+overflow-x: hidden;
+}
+#welcomecarousel .other-ideas 
+{
+	background-color: #009EEC; 
+	color: white; 
+	padding: 0px; 
+	text-align: left; 
+	padding: 15px 20px 15px 20px;
+}
+
+.write-story-prompt  .accordion-inner {
+padding: 0px 0px 0px 0px;
+border-top: 0px;
+}
+
+.other-ideas{
+        padding: 15px 0px 15px 0px;
+	border-top: 1px solid #E5E5E5;
+}
+
+.ideas a{
+
+color: white; 
+}
+
+.ideas a:hover {
+color: gray;
+}
+.navtabs
+{
+    width:800px; 
+}
+
+.errormessage {
+    margin-top: 80px;
+}
+
+.outertable-recent {
+    width: 800px;
+    margin-top: -10px;
+}
+
+.outertable-timeline {
+    width: 620px;
+    margin-top: -10px;
+}
+
+.storyanchor {
+    position:absolute;
+    margin-top: -45px;
+}
+
+.storydiv {
+    margin-top: 15px;
+}
+
+.storyauthorpic {
+    margin-top: 5px;
+    float: left;
+}
+
+.bubbles {
+    margin-top: 2px;
+    float: left;
+}
+
+.storytable-recent {
+    width: 500px;
+    float: left;
+}
+
+.storytable-timeline {
+    width: 600px;
+    float: left;
+    margin-top: 15px;
+}
+
+.storytitlerow-recent {
+    margin: 0px -10px 0px 0px;
+    font-size: 22px;
+    line-height: 125%;
+}
+
+.storytitlerow-timeline {
+    margin-bottom: -10px;
+}
+
+.storytitle-authorname {
+    color: #292929;
+}
+
+.storytitle-wrote {
+    color: grey;
+}
+
+.storytitle-date {
+    color: #CFCFCF;
+    font-size: 14;
+}
+
+.storytitle-postdate {
+    color: grey;
+    font-size: 12;
+}
+
+.storytitle-dropdown {
+    margin-top: -30px;
+}
+
+.storytext {
+    color: grey;
+    margin-bottom: 0px;
+    font-size: 14;
+}
+
+.story-isprivate {
+    color: #CFCFCF;
+    font-size: 12;
+    margin-bottom: -6px;
+}
+
+.commentrow {
+    color: grey;
+    margin-top: 5px;
+    margin-bottom: -10px;
+}
+
+.commentrow-timeline {
+    margin-top: 5px;
+}
+
+.commentrow-timeline-inner {
+    margin-right: 8px;
+}
+
+.commentrow-textbox {
+    margin-left: 4px;
+}
+
+.commentrow-likecount {
+    font-size: 10;
+    color: white;
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg);
+}
+
+.commentrow-likecounttext {
+    margin: -5px;
+}
+
+.commenttextrow {
+    background-color: #F0F0F0;
+}
+
+.commenttextrow-viewall {
+    font-size: 13px;
+}
+
+.commentauthorpic {
+    float: left;
+}
+
+.commentcontent {
+    margin: 0px 5px 0px 8px;
+    width: 435px;
+    float: left;
+}
+
+.commentpostdate {
+    margin-top: -3px;
+    color: grey;
+    font-size: 10;
+    float: right;
+}
+
+.commentauthor {
+    margin-bottom: 2px;
+    font-size: 14
+}
+
+.commenttext {
+    margin-bottom: 0px;
+    font-size: 14
+}
+
+.taggeduserstable { 
+    margin-left: 10px;
+    width: 200px;
+    float: left;
+}
+
+.taggeduserstitle { 
+    margin-bottom: 15px;
+}
+
+.taggeduserstext { 
+    font-size: 13;
+}
+
+.recent-specialmessage {
+    font-size: 14;
+    margin-top: 10px;
+}
+
+.taggedusers-timeline {
+    margin-top: 3px;
+}
+
+.post-modal {
+    display: none;
+    width: 700px;
+}
+
+.new-user-modal{
+    display: none;
+    width: 700px;
+}
+
+.delete-modal {
+    display: none;
+    width: 400px;
+}
+
+.share-modal {
+    display: none;
+    width: 370px;
+}
+
+.like-modal {
+    display: none;
+    width: 400px;
+}
+
+.storyoftheday {
+    text-align: left;
+    background: url('/static/storyoftheday.png');
+    width: 151px;
+    height: 77px;
+    margin: 20px 0px 20px;
+}
+
+.storyofthedaytext {
+    font-size: 13px;
+    font-family: Verdana;
+    color: #000000;
+    padding: 5px 10px 5px 5px;"
+}
+
+.body-sidebar {
+    float: left;
+    width: 200px;
+    margin-top: -10px;
+}
+
+.body-content {
+    margin-top: 60px;
+    margin-left: 250px;
+}
+
+.footerdiv {
+}
+
+.footercopyright {
+    margin-right: 20px;
+    float: right;
+}
+
+.modal-header {
+color: black;
+}
+
+.new-user-modal {
+
+}
+
+
+.title h2 {
+
+font-family: "Segoe UI Semibold";
+font-weight:normal; 
+font-size: 24px; 
+}
+
+ .subtitle  h2{
+
+font-family: "Segoe UI Light";
+font-weight:normal; 
+font-size: 24px; 
+}
+
+
+a {
+color: #009EEC;
+}

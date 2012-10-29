@@ -1,0 +1,171 @@
+{% extends "remenis_base_nav.html" %}
+
+        {% block content %}
+
+        {% if not_friend %}
+        <p class="errormessage"><a href="http://www.facebook.com/{{ profileid }}" target="_blank">{{ profile_name }}</a> is not your Facebook friend.</p>
+        {% else %}
+	<div class ="write-story-prompt center qb-container">
+	    <!--<div class ="box">
+		<h2> Write a story from your life...</h2>
+	    </div>-->
+	    <div class ="ideas">
+	         <div class="accordion" id="accordion2">
+                <div class="accordion-group">
+                  <div class="accordion-heading">
+				  
+		    <p> Write a story! Here are some ideas. </p> 
+		    <div class ="row-fluid">
+		            <div class = "span8"> 
+			    <a data-toggle="modal" href="#post"><h2> What's your earliest memory? </h2> </a>
+			    </div>
+			    <div class = "span4"> 
+			    <a class="accordion-toggle collapsed btn btn-large" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+			      More Ideas
+			    </a>
+			    </div>
+		    </div> <!-- end row --> 
+                  </div>
+                  <div id="collapseOne" class="accordion-body collapse" style="height: 0px; ">
+                    <div class="accordion-inner">
+		      <div class="other-ideas">
+			<a data-toggle="modal" href="#post"><h2> I met my best friend... </h2></a>
+		      </div>
+		      <div class="other-ideas">
+		        <a data-toggle="modal" href="#post"><h2> One of my favorite vacations was... </h2></a>
+		      </div>
+		      <div class="other-ideas">
+			<a data-toggle="modal" href="#post"><h2> My favorite family get together... </h2></a>
+		      </div>
+		      <div class="other-ideas">
+			<a data-toggle="modal" href="#post"><h2> The best dinner I've ever had was... </h2></a>
+		      </div>
+		      <div class="other-ideas">
+			<a data-toggle="modal" href="#post"><h2> My favorite memory from my school days... </h2></a>
+		      </div>
+		      
+                    </div>
+                  </div>
+                </div>
+              </div>
+	    </div>
+	</div>
+	<div class = "center"> 
+        <h2>{{ profile_name }}</h2>
+        <br>
+        {% if stories_about_user and active_tab != 'home' %}
+        <ul class="nav nav-tabs center navtabs">
+            <li>
+                <a href="?display=recent">Most Recent</a>
+            </li>
+            <li class="active">
+                <a href="?display=timeline">Timeline</a>
+            </li>
+        </ul>
+        <br>
+        {% endif %}
+
+        <table class="table table-notop center outertable-timeline">
+        {% for story in stories_about_user %}
+        <tr><td class ="story-container">
+        <a name="{{ story.id }}" class="storyanchor"></a>   
+        
+            <!--story table-->
+            <table class="table storytable-timeline">
+                <tr><td>
+                    <div class="storytitlerow-timeline">
+                        <p>
+                        <a href="/story/{{ story.id }}" class="storytitlerow-recent">{% if story.title == '' %}...{% else %}<strong>{{ story.title }}</strong>{% endif %}</a>
+                        &nbsp;
+                        <i class="storytitle-date">
+                            {% for dic_storyid, dic_storydatestring in stories_date_string_dictionary.items %}
+                                {% ifequal dic_storyid story.id %}
+                                    {{ dic_storydatestring }}
+                                {% endifequal %}
+                            {% endfor %}
+                        </i>
+                        </p>
+                    </div>
+                </td></tr>
+                <tr><td>
+                    <p class="storytext">
+                    {% if story.story|length > 500 %}
+                        {{ story.story|linebreaksbr|slice:":500" }}<span id="story-{{ story.id }}-show">... <a href="#" onclick="showHide('story-{{ story.id }}');return false;"> See more &darr;</a></span><span id="story-{{ story.id }}-more" style="display: none;">{{ story.story|linebreaksbr|slice:"500:" }}<!--<a href="#" onclick="showHide('story-{{ story.id }}');return false;"> See less &uarr;</a>--></span>
+                    {% else %}
+                        {{ story.story|linebreaksbr }}
+                    {% endif %}
+                    </p>
+                    {% if story.is_private %}
+                    <p class="pull-right story-isprivate" rel="tooltip" title="Only those in this story are able to see it."><i>Private</i></p>
+                    {% endif %}
+                </td></tr>
+                <tr><td>
+                    <div class="row-fluid">
+                        <div class="span7 taggedusers-timeline">
+                            {% for dic_storyid, dic_taggedusers in stories_tagged_users_dictionary.items %}
+                                {% ifequal dic_storyid story.id %}
+                                    <a href="/{{ story.authorid.fbid }}" class="nounderline">
+                                        <img src="https://graph.facebook.com/{{ story.authorid.fbid }}/picture?type=square" class="highlightit rounded3" height="30" width="30"rel="tooltip" title="Written by {{ story.authorid.full_name }}" />
+                                    </a>
+                                    {% for tagged_user in dic_taggedusers %}
+                                        {% if tagged_user.fbid != story.authorid.fbid %}
+                                        <a href="/{{ tagged_user.fbid }}" class="nounderline">
+                                            <img src="https://graph.facebook.com/{{ tagged_user.fbid }}/picture?type=square" class="highlightit rounded3" height="30" width="30" rel="tooltip" title="{{ tagged_user.full_name }}"/>
+                                        </a>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endifequal %}
+                            {% endfor %}
+                        </div>
+                        <div class="span5 commentrow-timeline">
+                            <div class="input-append pull-right commentrow-timeline-inner">
+                            <!--<img src="/static/remenis_favicon.png" width=30 />-->
+                            
+                            <span class="add-on commentrow-likecount" rel="tooltip" title="Number of likes" style="height: 10px; width: 18px; background-color: #258EAA; margin-left: -11px;">
+                                <p class="commentrow-likecounttext">
+                                {% for dic_storyid, dic_storylikes in stories_likes_dictionary.items %}
+                                    {% ifequal dic_storyid story.id %}
+                                        {{ dic_storylikes|length }}
+                                    {% endifequal %}
+                                {% endfor %}
+                                </p>
+                            </span>
+                            
+                            <button class="btn btn-medium" onclick="location.href='/like/{{ story.id }}'" style="margin-left: -10px;" rel="tooltip" title="Like this story!" {% if story.id in liked_story_ids %} disabled="disabled" {% endif %}>
+                                <i class="icon-heart"></i>
+                            </button>
+                            
+                            <span class="add-on commentrow-likecount" rel="tooltip" title="Number of comments" style="height: 10px; width: 18px; background-color: #258EAA; margin-left: -11px;">
+                                <p class="commentrow-likecounttext">
+                                {% for dic_storyid, dic_storycomments in stories_comments_dictionary.items %}
+                                    {% ifequal dic_storyid story.id %}
+                                        {{ dic_storycomments|length }}
+                                    {% endifequal %}
+                                {% endfor %}
+                                </p>
+                            </span>
+                            
+                            <button class="btn btn-medium" onclick="location.href='/story/{{ story.id }}'" style="margin-left: -11px;" rel="tooltip" title="Comment on this story!">
+                                <i class="icon-comment"></i>
+                            </button>
+                            <button class="btn btn-medium" type="button" style="margin-left: -5px;" rel="tooltip" title="Bookmark - coming soon!">
+                                <i class="icon-bookmark"></i>
+                            </button>
+                            <button class="btn btn-medium" onclick="PostToYourWall({{ story.id }})" type="button" style="margin-left: -5px;" rel="tooltip" title="Share on Facebook!">
+                                <i class="icon-share-alt"></i>
+                            </button>
+                            </div>
+                        </div>
+                    </div>
+                </td></tr>
+            </table>
+	    <tr> <td class ="gap"> </td></tr>
+        </td></tr>
+        {% empty %}
+        <p>No stories.</p>
+        {% endfor %}
+        </table>
+        </div>
+        {% endif %}
+
+        {% endblock %}

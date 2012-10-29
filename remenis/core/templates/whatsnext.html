@@ -1,0 +1,17 @@
+{% extends "remenis_base_nav.html" %}
+
+        {% block content %}
+
+        <h2>What's Next?</h2>
+        <br>
+        <div style="font-size: 14px;">
+            <p>We're constantly working on new features.  Here's what's on deck...</p>
+            <ul>
+            {% for item in whatsnext %}
+                <li>{{ item }}</li>
+            {% endfor %}
+            </ul>
+            <br>
+            <p><strong style="font-size: 18px;">Have any more ideas?</strong>  <br>Give us feedback using the tab to the right, or email us directly at <strong>feedback@remenis.com</strong></p>
+        </div>
+        {% endblock %}

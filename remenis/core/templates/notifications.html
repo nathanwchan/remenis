@@ -1,0 +1,34 @@
+{% extends "remenis_base_nav.html" %}
+
+        {% block content %}
+
+        <h2>Notifications</h2>
+        {% if notifications %}
+        <table class="table table-bordered" style="width: 700px; margin: 30px 0px;">
+            {% for notification in notifications %}
+            <tr><td>
+                <p style="float: left;">
+                {% if not notification.seen %}
+                <sup style="color: red;">New!</sup>
+                {% endif %}
+                {% if notification.type == 'tagged' %}
+                <strong>You've been tagged in </strong><a href="/story/{{ notification.storyid.id }}" target="_blank">"{{ notification.storyid.title }}"</a>
+                {% endif %}
+                {% if notification.type == 'comment' %}
+                {{ notification.count }} {% if notification.count == 1 %}person{% else %}people{% endif %} commented on <a href="/story/{{ notification.storyid.id }}" target="_blank">"{{ notification.storyid.title }}"</a>
+                {% endif %}
+                {% if notification.type == 'like' %}
+                {{ notification.count }} {% if notification.count == 1 %}person{% else %}people{% endif %} liked <a href="/story/{{ notification.storyid.id }}" target="_blank">"{{ notification.storyid.title }}"</a>
+                {% endif %}
+                </p>
+                <p style="margin-top: -3px; color: grey; font-size: 10; float: right;">
+                {{ notification.post_date }}
+                </p>
+            </td></tr>
+            {% endfor %}
+        </table>
+        <a class="btn btn-primary btn-medium" href="/notifications/clear" style="margin-bottom: -50px;">Clear all notifications</a>
+        {% else %}
+        <p style="margin-top: 30px;">No new notifications.</p>
+        {% endif %}
+        {% endblock %}

@@ -1,0 +1,105 @@
+{% extends "remenis_base.html" %}
+{% block header_extra %}
+	
+	<script type="text/javascript">
+
+	function mycarousel_initCallback(carousel)
+	{
+	    // Disable autoscrolling if the user clicks the prev or next button.
+	    carousel.buttonNext.bind('click', function() {
+		carousel.startAuto(0);
+	    });
+
+	    carousel.buttonPrev.bind('click', function() {
+		carousel.startAuto(0);
+	    });
+
+	    // Pause autoscrolling if the user moves with the cursor over the clip.
+	    carousel.clip.hover(function() {
+		carousel.stopAuto();
+	    }, function() {
+		carousel.startAuto();
+	    });
+	};
+
+	jQuery(document).ready(function() {
+	    jQuery('#mycarousel').jcarousel({
+		auto: 2,
+		wrap: 'last',
+		initCallback: mycarousel_initCallback
+	    });
+	});
+
+</script>
+<script type="text/javascript" src="/static/js/jquery.jcarousel.js"></script>
+<script type="text/javascript" src="/static/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.jcarousel.min.js"></script>
+{% endblock %}
+
+        {% block splash %}
+
+
+<span style="display: none; "><iframe style="display: none !important" id="framesocket30988" src="https://static.olark.com/jsclient/storage.html?v=c7a4c9237f317042c3becc9192565e4a#TK6626353922765702" onload="try{window.framesocket30988()}catch(e){framesocket30988()}"></iframe></span><div id="habla_beta_container_do_not_rely_on_div_classes_or_names" class="habla-browser-mozilla habla-desktop olrk-noquirks"><div id="hbl_operator_state_div" class="olrk-away"><div id="hbl_region" class="olrk-normal"><div id="habla_window_state_div" class=" olrk-state-compressed"><div id="habla_window_div" style="margin: 0px 10px 0px 20px; bottom: 0px; right: 0px; display: none; position: fixed; " class="habla_window_div_base hbl_pal_main_width olrk-fixed-bottom olrk-fixed-right "><div id="habla_compressed_div" class="olrk-left-align" style="display: block; "></div><div id="habla_panel_div" style="display: block; " class="habla_panel_border hbl_pal_main_bg hbl_pal_panel_border hbl_pal_main_font_family hbl_pal_main_font_size "><div id="habla_both_div" style="display: block; "><div id="habla_topbar_div" class="habla_topbar_div_normal hbl_pal_title_fg hbl_pal_title_bg habla_topbar_div_compressed "><a id="habla_oplink_a" class="habla_oplink_a_normal hbl_pal_header_font_size hbl_pal_title_fg ">Contact us!</a><a id="habla_sizebutton_a" class="habla_button habla_button_a_normal hbl_pal_header_font_size hbl_pal_main_font_family hbl_pal_button_bg hbl_pal_button_fg ">^</a></div><span id="olrk_tab_closure_span"></span></div><div id="habla_expanded_div" style="display: none; "><div id="habla_middle_div"><div id="habla_middle_wrapper_div"><div id="habla_conversation_div" style="height: 150px; overflow: hidden; display: none; " class="hbl_panel habla_conversation_div hbl_pal_main_height hbl_pal_control_border hbl_pal_main_fg hbl_pal_main_bg   habla_conversation_message_on "><span id="hbl_body_message">Questions? We'd love to chat!</span></div><div id="habla_offline_message_sent_div" style="display: none; " class="hbl_panel habla_offline_message_sent_div hbl_pal_main_height hbl_pal_control_border hbl_pal_main_fg ">Thanks for your message!  We'll get back to you shortly.</div><div id="habla_offline_message_div" style="display: block; " class="hbl_panel habla_offline_message_div hbl_pal_control_border hbl_pal_main_fg "><span id="habla_offline_message_span">We're not around, but we'd love to chat another time.</span><div class="hbl_txt_wrapper"><textarea id="habla_name_input" name="habla_name_input" style="height: 20px; display: block; " class="habla_wcsend_field habla_wcsend_input_pre habla_wcsend_input_normal hbl_pal_input_pre_fg hbl_pal_main_font_family hbl_pal_input_font_size hbl_pal_control_border " placeholder=" and type your Name"></textarea></div><div class="hbl_txt_wrapper"><textarea id="habla_offline_email_input" name="habla_offline_email_input" style="height: 20px; display: block; " class="habla_wcsend_field habla_wcsend_input_pre habla_wcsend_input_normal hbl_pal_input_pre_fg hbl_pal_main_font_family hbl_pal_input_font_size hbl_pal_control_border " placeholder=" and type your Email"></textarea></div><div class="hbl_txt_wrapper"><textarea id="habla_offline_body_input" name="habla_offline_body_input" style="height: 65px; display: block; " class="habla_wcsend_field habla_wcsend_input_pre habla_wcsend_input_normal hbl_pal_input_pre_fg hbl_pal_main_font_family hbl_pal_input_font_size hbl_pal_control_border " placeholder="We're not around but we still want to hear from you!  Leave us a note:"></textarea></div><br id="habla_br"><span id="habla_offline_error_span" class="habla_offline_error_span "></span><input id="habla_offline_submit_input" name="habla_offline_submit_input" type="submit" class="habla_offline_submit_input hbl_pal_offline_submit_fg hbl_pal_control_border hbl_pal_offline_submit_bg " value="Send" style="display: block; "><div id="habla_offline_clear_div" class="clear_style "></div></div><div id="habla_pre_chat_div" style="display: none; height: 150px; " class="hbl_panel habla_pre_chat_div hbl_pal_main_height hbl_pal_main_fg "><span id="habla_pre_chat_span">Hi, I am around, click 'start chatting' to contact me.</span><div class="hbl_txt_wrapper"><textarea id="habla_pre_chat_name_input" name="habla_pre_chat_name_input" style="height: 20px; line-height: 20px; " class="habla_wcsend_field habla_wcsend_input_pre habla_wcsend_input_normal hbl_pal_input_pre_fg hbl_pal_main_font_family hbl_pal_input_font_size hbl_pal_control_border " placeholder=" and type your Name"></textarea></div><div class="hbl_txt_wrapper"><textarea id="habla_pre_chat_email_input" name="habla_pre_chat_email_input" style="height: 20px; line-height: 20px; " class="habla_wcsend_field habla_wcsend_input_pre habla_wcsend_input_normal hbl_pal_input_pre_fg hbl_pal_main_font_family hbl_pal_input_font_size hbl_pal_control_border " placeholder=" and type your Email"></textarea></div><div class="hbl_txt_wrapper" style="display: none; "><textarea id="habla_pre_chat_phone_input" name="habla_pre_chat_phone_input" style="height: 20px; line-height: 20px; display: none; " class="habla_wcsend_field habla_wcsend_input_pre habla_wcsend_input_normal hbl_pal_input_pre_fg hbl_pal_main_font_family hbl_pal_input_font_size hbl_pal_control_border " placeholder="undefined"></textarea></div><br id="habla_br_2"><span id="habla_pre_chat_error_span"></span><input id="habla_pre_chat_submit_input" name="habla_pre_chat_submit_input" type="submit" class="habla_pre_chat_form_field habla_offline_submit_input hbl_pal_offline_submit_fg hbl_pal_control_border hbl_pal_offline_submit_bg " value="Click here to start chatting"><div id="habla_pre_chat_clear_div" class="clear_style "></div></div></div><form id="habla_chatform_form" action="#" method="GET" autocomplete="off" class="habla_chatform_form " style="display: none; "><div id="habla_input_div" class="habla_input_div "><div class="hbl_txt_wrapper"><textarea id="habla_wcsend_input" name="habla_wcsend_input" size="undefined" style="line-height: 20px; height: 20px; display: none; " class="habla_wcsend_field habla_wcsend_input_pre habla_wcsend_input_normal hbl_pal_input_pre_fg hbl_pal_main_font_family hbl_pal_input_font_size hbl_pal_control_border " placeholder="Type here and hit  to chat" disabled=""></textarea></div></div></form></div><div style="padding: 3px 0 5px 0 !important; font-family: helvetica, sans-serif; text-align: center; text-transform: uppercase; font-size: 9px; letter-spacing: 2px; font-weight: bold; color: #aaa !important;"><span style="display:none"><a id="hblink9" style="font-family: helvetica, sans-serif; text-transform: uppercase; font-size: 9px !important; letter-spacing: 2px; font-weight: bold; color: #e75917 !important;"></a>http://www.olark.com</span>Powered By <a style="font-family: helvetica, sans-serif; text-transform: uppercase; font-size: 9px !important; letter-spacing: 2px; font-weight: bold; color: #e75917 !important;" href="http://www.olark.com/welcome/?rid=1553-824-10-1051&amp;rid=1553-824-10-1051&amp;utm_medium=widget&amp;utm_campaign=powered_by&amp;utm_source=1553-824-10-1051" id="hblink99" target="_blank">Olark</a></div></div></div><div id="habla_closed_div" style="display: none; "></div></div></div></div></div></div></body></html>
+        <div style="text-align: center;">
+            <!--[if IE]>
+             <div style="text-align: left; margin: 30px 0px; width: 300px;">
+                 <img src="/static/remenis_logo.png"/>
+             </div>
+             <p style="text-align: left; width: 550px; margin: 40px 0px; font-size: 20px; font-family: Verdana; color: #FFFFFF; line-height:120%;">Sorry, we currently do not support Internet Explorer.  Consider using <a href="http://www.mozilla.org/firefox/new/" target="_blank">Mozilla Firefox</a> or <a href="http://www.google.com/chrome/" target="_blank">Google Chrome</a><p>
+             <![endif]-->
+            <!--[if !IE]> -->
+            {% if login_message %}
+            <p style="width: 600px; margin: 30px auto; text-align: center; font-size: 20px; font-family: Verdana; color: #FFFFFF;">{{ login_message }}</p>
+            {% endif %}
+            <section style="width: 900px; margin: 0px auto; position: relative; z-index: 2;">
+                <div>
+                    <p style="font-size: 60px; font-family: Verdana; color: #000000; padding: 110px 0px 0px 0px;">Life is made of memories</p>
+		    <p style="font-size: 30px; font-family: Verdana; color: #000000; padding: 20px 0px 0px 0px;">Collect and share your favorite ones with Remenis</p>
+		    <br/><br/><br/>
+		    <img src="/static/landing_carousel_vacation.jpg" alt="">
+		    
+		
+		<br/><br/><br/>
+                    <a class="login rpxnow btn btn-danger btn-xlarge" href="https://remenis.rpxnow.com/openid/v2/signin?token_url={{ token_url }}{{ subsite }}{{ story_id }}">Start Remenising &raquo;</a>
+                </div>
+            </section>
+            <!-- <![endif]-->
+        </div>
+	
+	<ul id="mycarousel" class="jcarousel-skin-tango">
+	    <li><img src="/static/landing_carousel_vacation.jpg" alt="" /></li>
+	    <li><img src="/static/landing_carousel_vacation.jpg" alt="" /></li>
+	    <li><img src="/static/landing_carousel_vacation.jpg" alt="" /></li>
+	    <li><img src="/static/landing_carousel_vacation.jpg" alt="" /></li>
+	    <li><img src="/static/landing_carousel_vacation.jpg" alt="" /></li>
+	    <li><img src="/static/landing_carousel_vacation.jpg" alt="" /></li>
+	    <li><img src="/static/landing_carousel_vacation.jpg" alt="" /></li>
+	</ul>
+	
+        {% endblock %}
+
+        {% block no_body %}
+        {% endblock %}
+
+        {% block no_footer %}
+        {% endblock %}
+
+        {% block no_feedback %}
+        {% endblock %}
+
+        {% block load_javascript %}
+        <!-- RPX social login widget -->
+
+        <script>
+            var rpxJsHost = (("https:" == document.location.protocol) ? "https://" : "http://static.");
+            document.write(unescape("%3Cscript src='" + rpxJsHost +
+                                    "rpxnow.com/js/lib/rpx.js' type='text/javascript'%3E%3C/script%3E"));
+            </script>
+        <script>	
+            RPXNOW.overlay = true;
+            RPXNOW.language_preference = 'en';
+            // Set default provider to Facebook
+            // https://rpxnow.com/docs#sign-in_default_provider
+            //RPXNOW.default_provider = 'facebook';
+            </script>
+        {% endblock %}
