@@ -814,10 +814,10 @@ def like(request, storyid=""):
 def story(request, storyid=""):
 	login_successful, new_user = saveSessionAndRegisterUser(request, "story")
 	if login_successful == False:
-		if not storyid == "":
-		    return redirect('/?story=' + storyid) # story login page
-        else:
-		    return redirect('/')
+		if storyid == "":
+		    return redirect('/')			
+		else:
+			return redirect('/?story=' + storyid) # story login page	    
 			
 	userid = (request.session['accessCredentials']).get('uid')
 	logged_in_user = User.objects.get(fbid=userid)
@@ -999,6 +999,7 @@ def messagesent3(request):
 def clearSession(request):
     request.session.pop('token', None)
     request.session.pop('profile', None)
+	request.session.pop('friends', None)
     request.session.pop('accessCredentials', None)
     analyticsPageView("logout")
             
